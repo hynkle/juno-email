@@ -1,4 +1,4 @@
-require "juno/version"
+require 'juno/version'
 
 module Juno
   # Your code goes here...
