@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require 'slop'
+require 'juno/version'
+
+opts = Slop.parse(help: true) do
+  banner "Usage: #{File.basename(__FILE__)} [options]"
+
+  on 's', 'source=',      'Path to Juno directory. Required.'
+  on 'd', 'destination=', 'Path to output directory. Required.'
+  on 'o', 'overwrite',    'Overwrite files in output directory.'
+
+  on 'v', 'version', 'Display version.' do
+    puts Juno::VERSION
+    exit
+  end
+end
