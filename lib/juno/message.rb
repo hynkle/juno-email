@@ -14,5 +14,13 @@ module Juno
       @body
     end
 
+    def to_eml
+      [@headers.join(?/), @body].join(?/)
+    end
+
+    def to_s
+      to_eml
+    end
+
   end
 end
