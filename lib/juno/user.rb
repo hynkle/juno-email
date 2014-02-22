@@ -1,6 +1,7 @@
 require 'pathname'
 require 'inifile'
 require 'date'
+require 'juno/folder'
 
 module Juno
   class User
@@ -38,6 +39,26 @@ module Juno
       @juno_version ||= ini_config['Configuration']['Juno Version']
     end
 
+    def folders
+      return @folders if defined? @folders
+
+      director_path = @root.join('director.frm')
+      unless director_path.file?
+        raise "missing expected director.frm at #{director_path}"
+      end
+
+      @folders = []
+
+      @folders = director_path.readlines(encoding: 'ASCII-8BIT').map do |line|
+        matchdata = line.match(/^(\S+) (fold\d{4}\.frm)\b/)
+        next unless matchdata
+        name = matchdata[1]
+        filename = matchdata[2]
+        Folder.new(name, @root.join(filename))
+      end
+
+      @folders.compact!
+    end
     private
 
     def ini_config
