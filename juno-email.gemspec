@@ -4,11 +4,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'juno/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'juno'
+  spec.name          = 'juno-email'
   spec.version       = Juno::VERSION
   spec.authors       = ['Jonathan Hinkle']
   spec.email         = ['hello@hynkle.com']
-  spec.summary       = %q{convert mail from the Juno email client to a more standard format}
+  spec.summary       = %q{convert mail from the Juno email client to mbox format}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
