@@ -53,6 +53,8 @@ module Juno
         matchdata = line.match(/^(\S+) (fold\d{4}\.frm)\b/)
         next unless matchdata
         name = matchdata[1]
+        name.gsub!('\_', ' ')     # spaces in folder names are represented as '\ '
+        name.gsub!('\\\\', '\\')  # backslashes in folder names are represented as '\\'
         filename = matchdata[2]
         Folder.new(name, @root.join(filename))
       end
