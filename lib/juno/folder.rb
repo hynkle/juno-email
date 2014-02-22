@@ -25,6 +25,14 @@ module Juno
         headers = message_dirent.children[1].read
         headers = headers.lines
         headers.each(&:chomp!)
+
+        # This condition is for emails from Juno, including advertisements
+        # and announcements. These emails are a bit unusual in that they
+        # lack a date header, so instead of dealing with whatever problems
+        # that might cause, they're of so little interest to anybody that
+        # we might as well just throw them away.
+        next if headers.any?{|h| h =~ /^X-UNTD-MSG:\s+internal/}
+
         Message.new(headers, body)
       end
 
