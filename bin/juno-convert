@@ -43,5 +43,7 @@ juno.users.each do |user|
   user_dir.mkdir unless user_dir.directory?
 
   user.folders.each do |folder|
+    mbox_path = user_dir.join("#{folder.name}.mbox")
+    folder.write_mbox(mbox_path, overwrite: opts[:overwrite])
   end
 end

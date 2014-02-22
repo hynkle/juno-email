@@ -56,5 +56,17 @@ module Juno
       @contains_duplicate_messages ||= Set.new(messages).count != messages.count
     end
 
+    def write_mbox(path, opts={})
+      if path.exist? && !opts[:overwrite]
+        raise "#{path} already exists"
+      end
+
+      path.open('w') do |f|
+        messages.each do |message|
+          f.puts message.to_mbox
+        end
+      end
+    end
+
   end
 end
