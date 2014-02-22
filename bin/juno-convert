@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'slop'
+require 'pathname'
 require 'juno/version'
 
 opts = Slop.parse(help: true) do
@@ -14,4 +15,22 @@ opts = Slop.parse(help: true) do
     puts Juno::VERSION
     exit
   end
+end
+
+command_help = opts.help
+opts = opts.to_hash
+
+unless opts[:source] && opts[:destination]
+  abort "ERROR: Missing required arguments.\n\n#{command_help}"
+end
+
+opts[:source] = Pathname.new(opts[:source]).expand_path
+opts[:destination] = Pathname.new(opts[:destination]).expand_path
+
+unless opts[:source].directory?
+  abort "ERROR: Source must be a directory."
+end
+
+unless opts[:destination].directory? || opts[:destination].parent.directory?
+  abort "ERROR: Destination must be a directory."
 end
