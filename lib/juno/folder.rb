@@ -2,6 +2,7 @@ require 'pathname'
 require 'ole/base'
 require 'ole/storage'
 require 'juno/message'
+require 'set'
 
 module Juno
   class Folder
@@ -49,6 +50,10 @@ module Juno
 
     def name
       @name
+    end
+
+    def contains_duplicate_messages?
+      @contains_duplicate_messages ||= Set.new(messages).count != messages.count
     end
 
   end

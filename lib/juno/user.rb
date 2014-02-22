@@ -1,6 +1,7 @@
 require 'pathname'
 require 'inifile'
 require 'date'
+require 'set'
 require 'juno/folder'
 
 module Juno
@@ -61,6 +62,15 @@ module Juno
 
       @folders.compact!
     end
+
+    def contains_duplicate_messages?
+      @contains_duplicate_messages ||= Set.new(all_messages).count != all_messages.count
+    end
+
+    def all_messages
+      folders.flat_map(&:messages)
+    end
+
     private
 
     def ini_config
