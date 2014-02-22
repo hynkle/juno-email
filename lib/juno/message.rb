@@ -22,5 +22,18 @@ module Juno
       to_eml
     end
 
+
+    def ==(other)
+      self.headers == other.headers && self.body == other.body
+    end
+
+    def hash
+      to_s.hash
+    end
+
+    def eql?(other)
+      self == other
+    end
+
   end
 end
