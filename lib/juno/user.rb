@@ -7,5 +7,9 @@ module Juno
       @root = Pathname.new(root_pathname)
     end
 
+    def path_id
+      @path_id ||= @root.basename
+    end
+
   end
 end
