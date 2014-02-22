@@ -36,3 +36,9 @@ unless opts[:destination].directory? || opts[:destination].parent.directory?
 end
 
 juno = Juno::Installation.new(opts[:source])
+
+juno.users.each do |user|
+  opts[:destination].mkdir unless opts[:destination].directory?
+  user_dir = opts[:destination].join(user.login)
+  user_dir.mkdir unless user_dir.directory?
+end
