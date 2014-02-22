@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Jonathan Hinkle']
   spec.email         = ['hello@hynkle.com']
   spec.summary       = %q{convert mail from the Juno email client to mbox format}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/hynkle/juno-email'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
