@@ -2,7 +2,7 @@
 
 require 'slop'
 require 'pathname'
-require 'juno/version'
+require 'juno'
 
 opts = Slop.parse(help: true) do
   banner "Usage: #{File.basename(__FILE__)} [options]"
@@ -34,3 +34,5 @@ end
 unless opts[:destination].directory? || opts[:destination].parent.directory?
   abort "ERROR: Destination must be a directory."
 end
+
+juno = Juno::Installation.new(opts[:source])
