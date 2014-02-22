@@ -23,8 +23,15 @@ module Juno
         body = message_dirent.children[0].read
         
         headers = message_dirent.children[1].read
+
+        # Some emails have a weird numeric "header" separated
+        # from the other headers by two newlines.  To the best
+        # of my knowledge, this is invalid so let's just drop it.
+        headers.sub!(/\n\n\d+\Z/, '')
+
         headers = headers.lines
         headers.each(&:chomp!)
+        headers.reject!(&:empty?)
 
         # This condition is for emails from Juno, including advertisements
         # and announcements. These emails are a bit unusual in that they
